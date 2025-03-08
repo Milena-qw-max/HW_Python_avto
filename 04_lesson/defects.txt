@@ -1,0 +1,40 @@
+Баг-репорт №1
+Непрохождение теста test_delete_symbol_positive при удаление пробела в строке с одним пробелом
+
+Шаги:
+1.Зайти GitHub ссылка на репозиторий :
+2.Открыть файл test_string_utils.py 
+3.В тести:
+    @pytest.mark.positive
+    @pytest.mark.parametrize("input_str,simbol")
+    def test_delete_symbol_positive(input_str, simbol):  
+        assert string_utils.delete_symbol(input_str,simbol)
+В строку @pytest.mark.parametrize("input_str,simbol",), после  ввести следующие данные  [("  ", " ")]
+
+
+
+ОР: Пробел удалится, строка станет пустой
+
+ФР: Выдает ошибку, так как пробел несчитается символом
+    FAILED test_string_utils.py::test_delete_symbol_positive[  - ] - AssertionError: assert ''
+
+
+Баг-репорт №2
+Непрохождение теста test_delete_symbol_negative при удаление пробела в пустой строке
+
+Шаги:
+1.Зайти GitHub ссылка на репозиторий :
+2.Открыть файл test_string_utils.py 
+3.В тести:
+    @pytest.mark.negative
+@pytest.mark.parametrize("input_str, simbol",)
+def test_delete_symbol_negative(input_str, simbol):  
+    assert string_utils.delete_symbol(input_str,simbol) 
+В строку @pytest.mark.parametrize("input_str,simbol",), после  ввести следующие данные  [("", " ")]
+
+
+
+ОР: Тест будет пройден так как в пустой строке отсутствует символ пробела
+
+ФР: Выдает ошибку, так как пробел несчитается символом
+    FAILED test_string_utils.py::test_delete_symbol_negative[- ] - AssertionError: assert ''
